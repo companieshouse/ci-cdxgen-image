@@ -23,17 +23,14 @@ RUN dnf upgrade -y \
               /usr/local/go/test \
               /usr/local/go/api \
               /usr/local/go/misc \
-    && dnf clean all
-
-USER appuser
-WORKDIR /home/appuser
-
+    \
     # Setting Up Node.js on Amazon Linux 2023
     # https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
+    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
     && . ~/.nvm/nvm.sh \
     && nvm install ${NODE_VERSION} \
     && nvm use ${NODE_VERSION} \
-    && npm install -g @cyclonedx/cdxgen@${CDXGEN_VERSION}
+    && npm install -g @cyclonedx/cdxgen@${CDXGEN_VERSION} \
+    && dnf clean all
 
 ENV PATH="/usr/local/go/bin:${PATH}"
