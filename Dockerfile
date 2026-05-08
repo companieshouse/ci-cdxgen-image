@@ -16,7 +16,7 @@ RUN dnf upgrade -y \
     && dnf install -y \
          jq-${JQ_VERSION} \
          findutils-${FIND_VERSION} \
-    && useradd -m -s /bin/bash ${CDXGEN_USER} \
+    && useradd -m -s /bin/bash -u 1000 ${CDXGEN_USER} \
     && curl -LO https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz \
     && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
     && rm go${GO_VERSION}.linux-amd64.tar.gz \
