@@ -29,7 +29,5 @@ RUN dnf upgrade -y \
     && npm install -g @cyclonedx/cdxgen@${CDXGEN_VERSION} \
     && dnf clean all
 
-USER ${CDXGEN_USER}
-WORKDIR /home/${CDXGEN_USER}
 
 ENV PATH="/usr/local/go/bin:${PATH}"
