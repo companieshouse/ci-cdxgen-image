@@ -16,7 +16,7 @@ RUN dnf upgrade -y \
     && dnf install -y \
          jq-${JQ_VERSION} \
          findutils-${FIND_VERSION} \
-    && useradd -m -s /bin/bash -u 1000 ${CDXGEN_USER} \
+    && useradd -m -s /bin/bash ${CDXGEN_USER} \
     && curl -LO https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz \
     && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
     && rm go${GO_VERSION}.linux-amd64.tar.gz \
@@ -29,5 +29,7 @@ RUN dnf upgrade -y \
     && npm install -g @cyclonedx/cdxgen@${CDXGEN_VERSION} \
     && dnf clean all
 
+USER ${CDXGEN_USER}
+WORKDIR /home/${CDXGEN_USER}
 
 ENV PATH="/usr/local/go/bin:${PATH}"
